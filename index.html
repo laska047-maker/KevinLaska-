@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Kevin Laska — Home</title>
+    <meta name="description" content="Kevin Laska — hobbies, achievements, and career aspirations (University of Minnesota Duluth)." />
+    <style>
+        :root{
+            --maroon: #7A0019; /* UMD maroon */
+            --gold:   #FFC627; /* UMD gold */
+            --white:  #ffffff;
+            --muted:  #7b6f6a;
+            --card-bg: #ffffff;
+            --max-width:1100px;
+            --radius:12px;
+        }
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg,var(--maroon) 0%, #560012 60%);
+            color:var(--white);
+            -webkit-font-smoothing:antialiased;
+        }
+        .wrap{max-width:var(--max-width);margin:36px auto;padding:28px}
+
+    /* top site navigation */
+    .site-nav{display:flex;gap:12px;align-items:center;margin-bottom:18px}
+    .site-nav a{color:rgba(255,255,255,0.9);text-decoration:none;padding:8px 12px;border-radius:8px}
+    .site-nav a:hover{background:var(--gold);color:var(--maroon)}
+    .site-nav a.active{background:var(--gold);color:var(--maroon);font-weight:700}
+    .site-header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg, rgba(122,0,25,0.95), rgba(122,0,25,0.90));padding:10px 0;backdrop-filter:blur(4px)}
+    .site-header .wrap{padding:0 28px}
+
+        header{display:flex;gap:20px;align-items:center}
+        .hero-img{width:140px;height:140px;border-radius:10px;overflow:hidden;flex:0 0 140px;background:var(--card-bg);display:grid;place-items:center;position:relative}
+    /* hero image frame: no subtle ring (removed per request) */
+    .hero-img::after{display:none}
+    .hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+    /* hero missing placeholder: hide broken-image box and show circular gold initials */
+    .hero-img.image-missing{background:transparent}
+    .hero-img.image-missing img{display:none}
+    .hero-img.image-missing::after{content:"KL";display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:var(--gold);color:var(--maroon);font-weight:700;font-size:34px;box-shadow:0 8px 26px rgba(122,0,25,0.10)}
+        .hero-content{flex:1}
+        h1{font-size:34px;margin:0 0 6px;color:var(--white);letter-spacing:0.02em}
+    /* gold underline below your name (kept larger by default) */
+    .hero-content h1::after{content:"";display:block;width:88px;height:8px;background:var(--gold);border-radius:4px;margin-top:10px}
+        p.lead{margin:0;color:rgba(255,255,255,0.9)}
+
+        .grid{display:grid;grid-template-columns:1fr 360px;gap:28px;margin-top:28px;align-items:start}
+        .card{background:var(--card-bg);padding:18px;border-radius:var(--radius);border:1px solid rgba(0,0,0,0.06);color:#111}
+        .card h2{color:var(--maroon);margin-top:0}
+        .card p{color:#333}
+
+    /* accent helper */
+    .accent{color:var(--gold)}
+    a, .btn{color:var(--gold);text-decoration:none}
+    .btn{display:inline-block;padding:8px 12px;background:transparent;border-radius:8px}
+    /* removed small card gold bars per request */
+    .card h2{position:relative}
+    .card h2::after{display:none}
+    .contact a.email-link{color:var(--maroon);background:var(--gold);padding:6px 8px;border-radius:6px;text-decoration:none;display:inline-block}
+
+        /* Hobbies grid */
+        .hobbies{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+        .hobby{display:flex;gap:12px;align-items:flex-start}
+        .hobby-img{width:120px;height:80px;border-radius:8px;overflow:hidden;background:#f3f1ef;border:1px solid rgba(0,0,0,0.04)}
+        .hobby-img img{width:100%;height:100%;object-fit:cover}
+        .hobby h3{margin:0 0 6px;font-size:16px;color:var(--maroon)}
+        .hobby p{margin:0;color:var(--muted);font-size:14px}
+
+        /* gold bullets for hobby items */
+        .hobby > div:last-child {
+            position: relative;
+            padding-left: 32px;
+        }
+        .hobby > div:last-child::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 2px 8px rgba(122,0,25,0.15);
+        }
+
+    /* If an image fails to load, hide the broken icon and show a neutral placeholder */
+    .hobby-img.image-missing{background:linear-gradient(135deg, rgba(255,198,39,0.095), rgba(122,0,25,0.03));display:flex;align-items:center;justify-content:center}
+    .hobby-img.image-missing img{display:none}
+    /* remove decorative dot inside image frame; keep left-side gold bubble */
+    .hobby-img.image-missing::after{display:none}
+
+        /* Achievements list */
+        .achievements ul{padding-left:18px;margin:6px 0 0;color:#222}
+        .achievements li{margin:8px 0}
+
+        /* Career box */
+        .career strong{display:block;margin-bottom:8px;color:var(--maroon)}
+
+        aside .card + .card{margin-top:16px}
+
+        footer{margin-top:30px;color:rgba(255,255,255,0.8);font-size:13px;text-align:center}
+
+        @media (max-width:980px){
+            .grid{grid-template-columns:1fr;}
+            .hobbies{grid-template-columns:1fr}
+            .hero-img{width:110px;height:110px}
+        }
+
+    </style>
+</head>
+<body>
+    <!-- sticky site header placed before main wrap so it's always visible -->
+    <header class="site-header">
+        <div class="wrap">
+            <nav class="site-nav">
+                <a href="index.html" class="active">Home</a>
+                <a href="discover.html">Discover</a>
+                <a href="hobbies.html">Hobbies</a>
+                <a href="game.html">Game</a>
+                <a href="career.html">Career</a>
+                <a href="resume.html">Resume</a>
+            </nav>
+        </div>
+    </header>
+    <div class="wrap">
+        <header>
+            <div class="hero-img">
+                <img src="images/mypic.jpg" alt="Kevin Laska">
+            </div>
+            <div class="hero-content">
+                <h1>Kevin Laska</h1>
+                <p class="lead">University of Minnesota Duluth — Student | Aspiring IT Consultant</p>
+                <p class="lead" style="margin-top:8px">I study at UMD, training to become an IT professional who uses creativity and technical skills to solve business problems.</p>
+            </div>
+        </header>
+
+        <main class="grid">
+            <div>
+                <section class="card about">
+                    <h2 style="margin-top:0">About & Studies</h2>
+                    <p style="color:var(--muted)">I am studying at the University of Minnesota Duluth. My studies focus on information technology, systems, and practical skills that will prepare me for a career in IT consulting. At UMD I work on projects, attend classes, and balance athletics with academics to grow both my technical and leadership abilities.</p>
+                </section>
+
+                <section class="card" style="margin-top:16px">
+                    <h2 style="margin-top:0">Hobbies</h2>
+                    <div class="hobbies">
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/hockey.jpg" alt="Hockey"></div>
+                            <div>
+                                <h3>Hockey</h3>
+                                <p>Playing hockey has been a passion — it taught me teamwork, discipline, and leadership. I played varsity and wear my experiences proudly.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/lifting.jpg" alt="Lifting"></div>
+                            <div>
+                                <h3>Lifting</h3>
+                                <p>Strength training keeps me focused and healthy. Lifting helps me build mental resilience and physical confidence.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/friends.jpg" alt="Friends"></div>
+                            <div>
+                                <h3>Hanging with friends</h3>
+                                <p>Spending time with friends grounds me, brings balance, and creates lifelong memories during college years.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/itwork.jpg" alt="IT Work"></div>
+                            <div>
+                                <h3>IT Work</h3>
+                                <p>I enjoy hands-on IT work — fixing problems, learning new tools, and building systems that make life easier for others.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/family.jpg" alt="Family"></div>
+                            <div>
+                                <h3>Spending time with family</h3>
+                                <p>Family time is important — it keeps perspective and motivation strong while I pursue school and athletics.</p>
+                            </div>
+                        </div>
+
+                        <div class="hobby">
+                            <div class="hobby-img"><img src="images/college.jpg" alt="College"></div>
+                            <div>
+                                <h3>College life</h3>
+                                <p>College brings learning, connections, and growth — a major chapter where I develop personally and professionally.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="card achievements" style="margin-top:16px">
+                    <h2 style="margin-top:0">Achievements</h2>
+                    <ul>
+                        <li>3× Letterman Varsity Hockey and Captain senior year</li>
+                        <li>1× Letter Varsity Lacrosse</li>
+                        <li>Most Improved Varsity Hockey 2023 (junior year)</li>
+                        <li>1× State Tournament Participant</li>
+                        <li>3× Academic Athlete (maintained a 3.0+ GPA during season)</li>
+                        <li>1× Scholarship award for college</li>
+                    </ul>
+                </section>
+
+            </div>
+
+            <aside>
+                <div class="card career">
+                    <h2 style="margin-top:0">Career Aspirations</h2>
+                    <p class="meta" style="color:var(--muted)"><strong>Aspiring IT Consultant</strong></p>
+                    <p>I want to work as an IT Consultant where I can be creative and solve problems. I aim to help organizations use technology strategically to grow and improve operations. I enjoy problem solving, system design, and working with teams to bring ideas to life.</p>
+                </div>
+
+                <div class="card contact" style="margin-top:16px">
+                    <h3>Contact</h3>
+                    <p style="color:var(--muted)">Name: <strong>Kevin Laska</strong></p>
+                    <p style="color:var(--muted)">University: <strong>University of Minnesota Duluth</strong></p>
+                    <p style="color:var(--muted)">Email: <a class="email-link" href="mailto:laska047@d.umn.edu">laska047@d.umn.edu</a></p>
+                </div>
+
+            </aside>
+        </main>
+
+        <footer>
+            <div>Made by Kevin Laska • University of Minnesota Duluth</div>
+        </footer>
+    </div>
+</body>
+    <script>
+        // Hide broken image icons in hobbies and show a neutral placeholder
+        (function(){
+            const imgs = document.querySelectorAll('.hobby-img img, .hero-img img');
+            imgs.forEach(img => {
+                function markMissing(){
+                    const parent = img.closest('.hobby-img');
+                    // mark hobby image container
+                    if(parent) parent.classList.add('image-missing');
+                    // mark hero image container if applicable
+                    const heroParent = img.closest('.hero-img');
+                    if(heroParent) heroParent.classList.add('image-missing');
+                }
+                // if it errors while loading
+                img.addEventListener('error', markMissing);
+                // if already failed to load (cached)
+                if(!img.complete || img.naturalWidth === 0){
+                    // give the browser one tick to attempt load, then mark
+                    setTimeout(() => {
+                        if(!img.complete || img.naturalWidth === 0) markMissing();
+                    }, 50);
+                }
+            });
+        })();
+    </script>
+</html>

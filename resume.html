@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume — Kevin Laska</title>
+    <style>
+        :root {
+            --maroon: #7A0019;
+            --gold: #FFC627;
+            --white: #fff;
+            --section-bg: rgba(255, 255, 255, 0.97);
+        }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg, var(--maroon), #560012);
+            color: var(--white);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 28px auto;
+            padding: 20px;
+        }
+
+        .site-nav {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .site-nav a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .site-nav a:hover, .site-nav a.active {
+            background: var(--gold);
+            color: var(--maroon);
+        }
+
+        .resume-container {
+            background: var(--section-bg);
+            border-radius: 12px;
+            padding: 40px;
+            color: #333;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .resume-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .resume-header h1 {
+            color: var(--maroon);
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .resume-header .contact {
+            margin-top: 15px;
+            color: #666;
+        }
+
+        .resume-header .contact a {
+            color: var(--maroon);
+            text-decoration: none;
+        }
+
+        .resume-header .contact a:hover {
+            color: var(--gold);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: var(--maroon);
+            border-bottom: 3px solid var(--gold);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .entry {
+            margin-bottom: 20px;
+        }
+
+        .entry h3 {
+            color: var(--maroon);
+            margin: 0 0 5px;
+        }
+
+        .entry .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .entry ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .entry ul li {
+            margin-bottom: 5px;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill {
+            background: var(--maroon);
+            color: var(--white);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+
+        .download-button {
+            display: inline-block;
+            background: var(--maroon);
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .download-button:hover {
+            background: var(--gold);
+            color: var(--maroon);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .site-nav, .page-header, .download-button {
+                display: none;
+            }
+            .resume-container {
+                box-shadow: none;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <nav class="site-nav">
+            <a href="index.html">Home</a>
+            <a href="discover.html">Discover</a>
+            <a href="hobbies.html">Hobbies</a>
+            <a href="game.html">Game</a>
+            <a href="career.html">Career</a>
+            <a href="resume.html" class="active">Resume</a>
+        </nav>
+
+        <div class="resume-container">
+            <div class="resume-header">
+                <h1>Kevin C. Laska</h1>
+                <div class="contact">
+                    5978 Mallard Ponds Drive • White Bear Lake, MN<br>
+                    <a href="tel:6512499117">651-249-9117</a> • 
+                    <a href="mailto:Kevin.Laska@Comcast.net">Kevin.Laska@Comcast.net</a>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Summary</h2>
+                <div class="entry">
+                    <p>Highly motivated, dependable, and energetic college sophomore with a strong academic record, actively seeking a part-time internship in Management Information Systems (MIS). Eager to gain hands-on experience while strengthening communication, collaboration, and organizational skills in a dynamic professional setting.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Education</h2>
+                <div class="entry">
+                    <h3>University of Minnesota Duluth</h3>
+                    <div class="meta">Bachelor of Arts in Business Administration • Expected May 2028</div>
+                    <p>Major: Management Information Systems</p>
+                    <ul>
+                        <li>Sophomore: Fall, 3.4 GPA</li>
+                        <li>Freshman: Final, 3.4 GPA</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Experience</h2>
+                <div class="entry">
+                    <h3>Customer Service Associate</h3>
+                    <div class="meta">Tap Exchange • September 2025 – Present</div>
+                    <ul>
+                        <li>Maintain and service beverage Taps</li>
+                        <li>Ensure clean and sanitized service area</li>
+                        <li>Prepare and serve food to customers</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <h3>Seasonal Landscaper</h3>
+                    <div class="meta">City of White Bear Lake • June 2025 – August 2025</div>
+                    <ul>
+                        <li>Performed maintenance of parks, fields and public spaces</li>
+                        <li>Assisted in tree removal and landscape upkeep</li>
+                    </ul>
+                </div>
+
+                <div class="entry">
+                    <h3>Warehouse Associate</h3>
+                    <div class="meta">Dey Appliance • May 2024 – August 2024</div>
+                    <ul>
+                        <li>Stocked appliance parts and managed inventory</li>
+                        <li>Fulfilled and processed customer orders</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Interests</h2>
+                <div class="entry">
+                    <div class="skills">
+                        <span class="skill">Golf</span>
+                        <span class="skill">Soccer</span>
+                        <span class="skill">Hockey</span>
+                        <span class="skill">Fishing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Skills</h2>
+                <div class="entry">
+                    <div class="skills">
+                        <span class="skill">Excellent Work Ethic</span>
+                        <span class="skill">Reliability</span>
+                        <span class="skill">Self-Starter</span>
+                        <span class="skill">Continuous Learning</span>
+                        <span class="skill">Adaptability</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>References</h2>
+                <div class="entry">
+                    <p>Available upon request</p>
+                </div>
+            </div>
+
+            <a href="#" class="download-button" onclick="window.print(); return false;">Download PDF (Print)</a>
+        </div>
+    </div>
+</body>
+</html>
