@@ -1,32 +1,333 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Career — Kevin Laska</title>
-  <style>
-    :root{--maroon:#7A0019;--gold:#FFC627;--white:#fff}
-    body{margin:0;font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, Arial;background:linear-gradient(180deg,var(--maroon),#560012);color:var(--white);}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
-    .site-nav{display:flex;gap:12px;align-items:center;margin-bottom:18px}
-    .site-nav a{color:rgba(255,255,255,0.9);text-decoration:none;padding:8px 12px;border-radius:8px}
-    .site-nav a:hover{background:var(--gold);color:var(--maroon)}
-    h1{margin-top:6px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career — Kevin Laska</title>
+    <style>
+        :root {
+            --maroon: #7A0019;
+            --gold: #FFC627;
+            --white: #fff;
+            --card-bg: #ffffff;
+            --max-width: 1100px;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+        
+        html, body { height: 100%; }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg, var(--maroon) 0%, #560012 60%);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: var(--max-width); margin: 36px auto; padding: 28px; }
+
+        /* Site navigation */
+        .site-nav { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+        .site-nav a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 8px 12px; border-radius: 8px; }
+        .site-nav a:hover { background: var(--gold); color: var(--maroon); }
+        .site-nav a.active { background: var(--gold); color: var(--maroon); font-weight: 700; }
+        
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: linear-gradient(180deg, rgba(122,0,25,0.95), rgba(122,0,25,0.90));
+            padding: 10px 0;
+            backdrop-filter: blur(4px);
+        }
+        .site-header .wrap { padding: 0 28px; }
+
+        h1 {
+            font-size: 36px;
+            color: var(--white);
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        .section-intro {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Content sections */
+        .content-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            color: #333;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--gold);
+        }
+
+        .content-section h2 {
+            color: var(--maroon);
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .content-section h3 {
+            color: var(--maroon);
+            font-size: 22px;
+            margin: 24px 0 12px 0;
+        }
+
+        .content-section p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin: 12px 0;
+        }
+
+        .content-section strong {
+            color: var(--maroon);
+        }
+
+        .content-section ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .content-section li {
+            margin: 10px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Company cards */
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin: 24px 0;
+        }
+
+        .company-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 24px;
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .company-card:hover {
+            box-shadow: 0 4px 12px rgba(122,0,25,0.15);
+            transform: translateY(-2px);
+        }
+
+        .company-card h3 {
+            color: var(--maroon);
+            font-size: 20px;
+            margin-top: 0;
+        }
+
+        .company-card p {
+            color: #666;
+            font-size: 14px;
+            margin: 8px 0;
+        }
+
+        .contact-info {
+            background: rgba(255,198,39,0.1);
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 12px;
+        }
+
+        .contact-info strong {
+            display: block;
+            color: var(--maroon);
+            margin-bottom: 4px;
+        }
+
+        .contact-info a {
+            color: var(--maroon);
+            text-decoration: none;
+            word-break: break-all;
+        }
+
+        .contact-info a:hover {
+            color: var(--gold);
+        }
+
+        .highlight {
+            background: rgba(255, 198, 39, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .highlight strong {
+            color: var(--maroon);
+        }
+
+        .strength-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .strength-item {
+            background: #f9f9f9;
+            padding: 16px;
+            border-radius: 6px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .strength-item strong {
+            color: var(--maroon);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .strength-item p {
+            font-size: 14px;
+            color: #666;
+            margin: 0;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .content-section {
+                padding: 24px;
+            }
+
+            .wrap {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="discover.html">Discover</a>
-      <a href="hobbies.html">Hobbies</a>
-      <a href="game.html">Game</a>
-      <a href="career.html" class="active">Career</a>
-      <a href="resume.html">Resume</a>
-    </nav>
+    <!-- Sticky site header -->
+    <header class="site-header">
+        <div class="wrap">
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="discover.html">Discover</a>
+                <a href="hobbies.html">Hobbies</a>
+                <a href="game.html">Game</a>
+                <a href="career.html" class="active">Career</a>
+                <a href="resume.html">Resume</a>
+            </nav>
+        </div>
+    </header>
 
-    <h1>Career</h1>
-    <p>This is the Career page. Expand your aspirations or CV content here.</p>
-  </div>
+    <div class="wrap">
+        <h1>Career</h1>
+        
+        <p class="section-intro">
+            I'm actively pursuing internship and career opportunities in IT Consulting. Below are the companies I'm most interested in and why I believe I'm an excellent fit for their teams.
+        </p>
+
+        <!-- Target Companies Section -->
+        <div class="content-section">
+            <h2>Target Companies</h2>
+            
+            <p>I'm focused on two outstanding companies that align with my skills, interests, and career aspirations:</p>
+
+            <div class="company-grid">
+                <!-- 3M Company -->
+                <div class="company-card">
+                    <h3>3M</h3>
+                    <p>A global innovation leader with an exceptional MIS Internship program that provides real-world experience in IT consulting and systems management.</p>
+                    <div class="contact-info">
+                        <strong>Contact Info:</strong>
+                        <a href="tel:6513180326">(651) 318-0326</a>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 13px; color: #999;"><strong>Why 3M:</strong> Beyond their renowned internship program, 3M holds deep personal significance—my Mom, Aunt, and Grandpa have all worked or currently work there. This company connection makes it a natural fit for my career path.</p>
+                </div>
+
+                <!-- Essentia Health -->
+                <div class="company-card">
+                    <h3>Essentia Health</h3>
+                    <p>A leading healthcare organization where I can apply my IT expertise to improve patient care and healthcare operations through innovative technology solutions.</p>
+                    <div class="contact-info">
+                        <strong>Contact Info:</strong>
+                        <a href="mailto:StudentPlacement@EssentiaHealth.org">StudentPlacement@EssentiaHealth.org</a>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 13px; color: #999;"><strong>Why Essentia:</strong> I've always been drawn to the healthcare field, and combining that passion with IT work feels like my ideal career path. The intersection of technology and healthcare impact excites me.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why I'm a Great Fit Section -->
+        <div class="content-section">
+            <h2>Why I'm an Excellent Fit</h2>
+            
+            <p>Beyond my technical knowledge and academic preparation, I bring qualities that set me apart as a candidate:</p>
+
+            <h3>My Core Strengths</h3>
+
+            <div class="strength-list">
+                <div class="strength-item">
+                    <strong>🎯 Unwavering Determination</strong>
+                    <p>I work incredibly hard at everything I do. I never give up, and I'm committed to finding solutions no matter the challenge.</p>
+                </div>
+
+                <div class="strength-item">
+                    <strong>💡 Creative Problem Solver</strong>
+                    <p>I don't always have immediate answers, but I'm confident I can figure out any problem through research, collaboration, and innovative thinking.</p>
+                </div>
+
+                <div class="strength-item">
+                    <strong>⚡ Proven Work Ethic</strong>
+                    <p>My track record demonstrates consistent effort, reliability, and commitment. This work ethic makes me stand out among other candidates.</p>
+                </div>
+
+                <div class="strength-item">
+                    <strong>🔄 Flexibility & Adaptability</strong>
+                    <p>I'm highly flexible and can execute tasks efficiently, adapting to changing priorities and learning new systems quickly.</p>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <strong>My Promise:</strong> I don't claim to know everything, but I commit to working harder than anyone else to deliver results. My ability to persevere, learn quickly, and maintain focus through challenges is what truly makes me valuable to your team.
+            </div>
+
+            <h3>Perfect Alignment with Your Needs</h3>
+
+            <p>My skills and interests directly align with what 3M and Essentia Health are looking for:</p>
+
+            <ul>
+                <li><strong>IT Consulting Expertise:</strong> I'm pursuing MIS as my major and actively developing consulting skills that your organizations need as you continue to evolve.</li>
+                <li><strong>Efficiency & Execution:</strong> I work at a reliable, efficient pace and can execute on assignments with minimal oversight.</li>
+                <li><strong>Collaborative Mindset:</strong> My background in team sports and group projects has taught me how to work effectively with diverse teams.</li>
+                <li><strong>Genuine Interest:</strong> This isn't just another internship for me—IT Consulting is my dream job, and I'm excited about the opportunity to contribute to your mission.</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>The Bottom Line:</strong> I bring technical capability, unwavering work ethic, creative problem-solving, and genuine passion. I'm ready to prove myself and make meaningful contributions to your team from day one.
+            </div>
+        </div>
+
+        <footer>
+            <div>Made by Kevin Laska • University of Minnesota Duluth</div>
+        </footer>
+    </div>
 </body>
 </html>

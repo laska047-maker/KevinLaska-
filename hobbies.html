@@ -1,32 +1,296 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Hobbies — Kevin Laska</title>
-  <style>
-    :root{--maroon:#7A0019;--gold:#FFC627;--white:#fff}
-    body{margin:0;font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, Arial;background:linear-gradient(180deg,var(--maroon),#560012);color:var(--white);}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
-    .site-nav{display:flex;gap:12px;align-items:center;margin-bottom:18px}
-    .site-nav a{color:rgba(255,255,255,0.9);text-decoration:none;padding:8px 12px;border-radius:8px}
-    .site-nav a:hover{background:var(--gold);color:var(--maroon)}
-    h1{margin-top:6px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies — Kevin Laska</title>
+    <style>
+        :root {
+            --maroon: #7A0019;
+            --gold: #FFC627;
+            --white: #fff;
+            --card-bg: #ffffff;
+            --max-width: 1100px;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+        
+        html, body { height: 100%; }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg, var(--maroon) 0%, #560012 60%);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: var(--max-width); margin: 36px auto; padding: 28px; }
+
+        /* Site navigation */
+        .site-nav { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+        .site-nav a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 8px 12px; border-radius: 8px; }
+        .site-nav a:hover { background: var(--gold); color: var(--maroon); }
+        .site-nav a.active { background: var(--gold); color: var(--maroon); font-weight: 700; }
+        
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: linear-gradient(180deg, rgba(122,0,25,0.95), rgba(122,0,25,0.90));
+            padding: 10px 0;
+            backdrop-filter: blur(4px);
+        }
+        .site-header .wrap { padding: 0 28px; }
+
+        h1 {
+            font-size: 36px;
+            color: var(--white);
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        .section-intro {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Hobbies grid */
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .hobby-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(122,0,25,0.15);
+        }
+
+        .hobby-icon {
+            font-size: 42px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .hobby-card h2 {
+            color: var(--maroon);
+            font-size: 22px;
+            margin: 0 0 12px;
+        }
+
+        .hobby-card p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .hobby-card strong {
+            color: var(--maroon);
+        }
+
+        .hobby-importance {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #f0f0f0;
+            font-size: 14px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .hobby-importance::before {
+            content: "✓ Why it matters: ";
+            color: var(--gold);
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        footer {
+            margin-top: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        /* Photo gallery section */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 50px 0 40px 0;
+        }
+
+        .photo-placeholder {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%;
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+            background: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .photo-placeholder img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-gallery h3 {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(122,0,25,0.9);
+            color: var(--gold);
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            margin: 0;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .hobbies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .wrap {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="discover.html">Discover</a>
-      <a href="hobbies.html" class="active">Hobbies</a>
-      <a href="game.html">Game</a>
-      <a href="career.html">Career</a>
-      <a href="resume.html">Resume</a>
-    </nav>
+    <!-- Sticky site header -->
+    <header class="site-header">
+        <div class="wrap">
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="discover.html">Discover</a>
+                <a href="hobbies.html" class="active">Hobbies</a>
+                <a href="game.html">Game</a>
+                <a href="career.html">Career</a>
+                <a href="resume.html">Resume</a>
+            </nav>
+        </div>
+    </header>
 
-    <h1>Hobbies</h1>
-    <p>This is the Hobbies page. You can reuse or expand the sections from the homepage here.</p>
-  </div>
+    <div class="wrap">
+        <h1>My Hobbies</h1>
+        
+        <p class="section-intro">
+            My hobbies reflect my values and passions as I continue to grow through college. From athletic pursuits to personal interests, these activities keep me balanced, focused, and engaged with the world around me.
+        </p>
+
+        <div class="hobbies-grid">
+            <div class="hobby-card">
+                <div class="hobby-icon">🏒</div>
+                <h2>Hockey</h2>
+                <p>Playing hockey has been a cornerstone of my life. It taught me <strong>teamwork, discipline, and leadership</strong>. I'm proud of my varsity experience and the lessons I've learned on the ice.</p>
+                <div class="hobby-importance">It shaped who I am as both an athlete and a person. The work ethic and resilience I built on the ice translate directly to success in school and my career.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">💪</div>
+                <h2>Lifting</h2>
+                <p><strong>Strength training</strong> keeps me focused and healthy. Regular workouts help me build mental resilience and physical confidence while managing the demands of college life.</p>
+                <div class="hobby-importance">It's my outlet for stress and a way to take control of my physical and mental health during challenging times at school and in life.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">👥</div>
+                <h2>Hanging with Friends</h2>
+                <p>Time with friends grounds me and brings <strong>balance to my college experience</strong>. These connections create lifelong memories and provide support through the ups and downs.</p>
+                <div class="hobby-importance">Friendships remind me what matters most and keep me grounded during stressful periods. They provide joy, perspective, and genuine support when I need it most.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">💻</div>
+                <h2>IT Work</h2>
+                <p>I'm passionate about <strong>hands-on IT work</strong> — solving problems, learning new tools, and building systems. This work directly aligns with my career aspirations as an IT consultant.</p>
+                <div class="hobby-importance">This is where my passion meets my purpose. The practical experience I gain helps me develop the skills I need for my career while solving real problems for people.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">❤️</div>
+                <h2>Spending Time with Family</h2>
+                <p>Family time keeps me grounded and provides <strong>perspective and motivation</strong>. These relationships are the foundation that supports me through school and athletics.</p>
+                <div class="hobby-importance">My family is my anchor. They remind me of my values, celebrate my successes, and provide unconditional support through every challenge and milestone.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">🎓</div>
+                <h2>College Life</h2>
+                <p>College is a transformative chapter bringing <strong>learning, connections, and growth</strong>. I'm developing personally and professionally through classes, experiences, and relationships.</p>
+                <div class="hobby-importance">College represents my investment in my future and my commitment to becoming the professional I want to be. Every experience here shapes my trajectory.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">🎣</div>
+                <h2>Fishing</h2>
+                <p><strong>Fishing with friends</strong> offers peaceful time in nature while building meaningful connections. It's a great way to relax and recharge from the busy college pace.</p>
+                <div class="hobby-importance">It provides me with moments of peace and reflection away from the hustle. These quiet moments with friends strengthen bonds and help me maintain balance and perspective.</div>
+            </div>
+
+            <div class="hobby-card">
+                <div class="hobby-icon">⛳</div>
+                <h2>Golfing with Friends</h2>
+                <p><strong>Golf</strong> combines competition, relaxation, and camaraderie. Playing with friends keeps me active while enjoying quality time outdoors and the challenge of the game.</p>
+                <div class="hobby-importance">Golf teaches patience, focus, and resilience — valuable skills for life. Golfing with friends is about enjoying the moment and building memories on the course.</div>
+            </div>
+        </div>
+
+        <!-- Photo Gallery Section -->
+        <h2 style="text-align: center; color: var(--white); font-size: 28px; margin-top: 60px; margin-bottom: 30px;">Photo Moments</h2>
+        
+        <div class="photo-gallery">
+            <div class="photo-placeholder">
+                <h3>Memory 1</h3>
+                <img src="images/IMG_3664.JPG" alt="Memory 1 - Kevin's hobbies">
+            </div>
+
+            <div class="photo-placeholder">
+                <h3>Memory 2</h3>
+                <img src="images/IMG_3684.PNG" alt="Memory 2 - Kevin's hobbies">
+            </div>
+
+            <div class="photo-placeholder">
+                <h3>Memory 3</h3>
+                <img src="images/IMG_4163.JPG" alt="Memory 3 - Kevin's hobbies">
+            </div>
+        </div>
+
+        <footer>
+            <div>Made by Kevin Laska • University of Minnesota Duluth</div>
+        </footer>
+    </div>
 </body>
 </html>

@@ -1,32 +1,257 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Discover — Kevin Laska</title>
-  <style>
-    :root{--maroon:#7A0019;--gold:#FFC627;--white:#fff}
-    body{margin:0;font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, Arial;background:linear-gradient(180deg,var(--maroon),#560012);color:var(--white);}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
-    .site-nav{display:flex;gap:12px;align-items:center;margin-bottom:18px}
-    .site-nav a{color:rgba(255,255,255,0.9);text-decoration:none;padding:8px 12px;border-radius:8px}
-    .site-nav a:hover{background:var(--gold);color:var(--maroon)}
-    h1{margin-top:6px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover UMD — Kevin Laska</title>
+    <style>
+        :root {
+            --maroon: #7A0019;
+            --gold: #FFC627;
+            --white: #fff;
+            --card-bg: #ffffff;
+            --max-width: 1100px;
+            --radius: 12px;
+        }
+
+        * { box-sizing: border-box; }
+        
+        html, body { height: 100%; }
+        
+        body {
+            margin: 0;
+            font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+            background: linear-gradient(180deg, var(--maroon) 0%, #560012 60%);
+            color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: var(--max-width); margin: 36px auto; padding: 28px; }
+
+        /* Site navigation */
+        .site-nav { display: flex; gap: 12px; align-items: center; margin-bottom: 18px; }
+        .site-nav a { color: rgba(255,255,255,0.9); text-decoration: none; padding: 8px 12px; border-radius: 8px; }
+        .site-nav a:hover { background: var(--gold); color: var(--maroon); }
+        .site-nav a.active { background: var(--gold); color: var(--maroon); font-weight: 700; }
+        
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: linear-gradient(180deg, rgba(122,0,25,0.95), rgba(122,0,25,0.90));
+            padding: 10px 0;
+            backdrop-filter: blur(4px);
+        }
+        .site-header .wrap { padding: 0 28px; }
+
+        h1 {
+            font-size: 36px;
+            color: var(--white);
+            margin-top: 0;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        .section-intro {
+            color: rgba(255,255,255,0.9);
+            font-size: 16px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Video section */
+        .video-container {
+            background: #000;
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            aspect-ratio: 16 / 9;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--radius);
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .content-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 32px;
+            color: #333;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--gold);
+        }
+
+        .content-section h2 {
+            color: var(--maroon);
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .content-section p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #555;
+            margin: 12px 0;
+        }
+
+        .content-section strong {
+            color: var(--maroon);
+        }
+
+        .content-section ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .content-section li {
+            margin: 10px 0;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .highlight {
+            background: rgba(255, 198, 39, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 16px 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .highlight strong {
+            color: var(--maroon);
+        }
+
+        footer {
+            margin-top: 50px;
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .content-section {
+                padding: 24px;
+            }
+
+            .wrap {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="discover.html" class="active">Discover</a>
-      <a href="hobbies.html">Hobbies</a>
-      <a href="game.html">Game</a>
-      <a href="career.html">Career</a>
-      <a href="resume.html">Resume</a>
-    </nav>
+    <!-- Sticky site header -->
+    <header class="site-header">
+        <div class="wrap">
+            <nav class="site-nav">
+                <a href="index.html">Home</a>
+                <a href="discover.html" class="active">Discover</a>
+                <a href="hobbies.html">Hobbies</a>
+                <a href="game.html">Game</a>
+                <a href="career.html">Career</a>
+                <a href="resume.html">Resume</a>
+            </nav>
+        </div>
+    </header>
 
-    <h1>Discover</h1>
-    <p>This is the Discover page. Add your content here.</p>
-  </div>
+    <div class="wrap">
+        <h1>Discover UMD</h1>
+        
+        <p class="section-intro">
+            My experience at the University of Minnesota Duluth has been transformative. From my reasons for choosing UMD to my favorite local experiences, here's what makes this place special to me.
+        </p>
+
+        <!-- UMD Welcome Video -->
+        <div class="video-container">
+            <video controls poster="images/mypic.jpg">
+                <source src="videos/UMD Welcome Video.mp4" type="video/mp4">
+                Your browser does not support the video tag. Please use a modern browser to view this content.
+            </video>
+        </div>
+
+        <!-- Why I Chose UMD Section -->
+        <div class="content-section">
+            <h2>Why I Chose University of Minnesota Duluth</h2>
+            
+            <p>My decision to attend UMD was influenced by several meaningful factors that continue to shape my college experience:</p>
+
+            <ul>
+                <li><strong>Exceptional Business School:</strong> UMD's business program offered the rigorous curriculum and practical experience I needed to pursue my passion in Management Information Systems.</li>
+                <li><strong>Built-In Community:</strong> Coming here with people I already knew made the transition to college smoother and helped me build a strong social foundation from day one.</li>
+                <li><strong>Diverse Extracurriculars:</strong> The wealth of clubs, organizations, and activities available outside the classroom allowed me to explore my interests and develop leadership skills.</li>
+                <li><strong>Family Legacy:</strong> Multiple generations of my family have walked these halls and built their futures here. I wanted to honor that tradition and create my own meaningful chapter in our family's UMD story.</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>My Connection:</strong> Choosing UMD wasn't just about academics—it was about joining a community that values growth, supports diverse interests, and celebrates tradition while creating space for new experiences.
+            </div>
+        </div>
+
+        <!-- What I Love About Duluth Section -->
+        <div class="content-section">
+            <h2>What I Love About Duluth & the Area</h2>
+            
+            <p>Duluth offers something special for every season. The area's natural beauty and vibrant community make it an incredible place to live and grow:</p>
+
+            <ul>
+                <li><strong>Summer Adventures:</strong> Beach days and downtown explorations with friends provide perfect escapes. Whether it's swimming, walking along the waterfront, or discovering new restaurants and shops, summer in Duluth is about making memories with the people you care about.</li>
+                <li><strong>Winter Activities:</strong> The frozen outdoor rinks and hockey opportunities define winter for me. Skating under the stars and playing with friends creates some of my most cherished memories on ice.</li>
+                <li><strong>Spring & Fall Exploration:</strong> Hiking trails and outdoor adventures keep me connected to nature. The changing seasons offer the perfect backdrop for reflection and rejuvenation away from campus life.</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>Year-Round Appeal:</strong> What makes Duluth exceptional is that there's always something meaningful to do. Every season brings new experiences, and the area's natural beauty reminds me to balance academics with adventure.
+            </div>
+        </div>
+
+        <!-- Personal Experiences Section -->
+        <div class="content-section">
+            <h2>My Personal Campus Experiences</h2>
+            
+            <p>My time at UMD has been filled with memorable moments that have shaped my understanding of the campus and the opportunities available:</p>
+
+            <ul>
+                <li><strong>Career Fairs:</strong> Attending career fairs has been invaluable. These events connected me with professionals in my field, helped me explore internship opportunities, and reinforced my commitment to pursuing IT consulting.</li>
+                <li><strong>Campus Exploration:</strong> Walking through campus and discovering all the facilities, buildings, and resources has been an eye-opening experience. From the library to the athletic facilities to the business school, every corner of UMD showcases excellence.</li>
+                <li><strong>Community Recognition:</strong> Taking time to truly explore campus has helped me appreciate how thoughtfully designed UMD is. The beauty of the facilities and the welcoming atmosphere make it clear why this school produces successful graduates.</li>
+            </ul>
+
+            <div class="highlight">
+                <strong>My Realization:</strong> The more time I spend on campus, the more I realize how fortunate I am to be part of this community. UMD is genuinely a beautiful and well-designed university that invests in student success.
+            </div>
+        </div>
+
+        <footer>
+            <div>Made by Kevin Laska • University of Minnesota Duluth</div>
+        </footer>
+    </div>
 </body>
 </html>

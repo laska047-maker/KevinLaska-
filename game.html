@@ -9,7 +9,7 @@
             --maroon: #7A0019;
             --gold: #FFC627;
             --white: #fff;
-            --table-green: #006400;
+            --table-green: #006417;
             --chip-red: #e81e28;
             --chip-black: #1e1e1e;
         }
@@ -103,6 +103,39 @@
             text-align: center;
             min-height: 36px;
             margin-bottom: 20px;
+        }
+
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 50;
+            display: flex;
+            gap: 10px;
+        }
+
+        .audio-btn {
+            background: var(--gold);
+            color: var(--maroon);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .audio-btn:active {
+            transform: scale(0.95);
         }
 
         .betting-table {
@@ -276,6 +309,20 @@
         <div id="message"></div>
     </div>
 
+    <!-- Audio elements -->
+    <audio id="background-music" loop volume="0.3">
+    </audio>
+    <audio id="spin-sound" volume="0.5">
+    </audio>
+    <audio id="win-sound" volume="0.7">
+    </audio>
+
+    <!-- Audio control buttons -->
+    <div class="audio-controls">
+        <button class="audio-btn" id="music-toggle" title="Toggle Background Music">🔊</button>
+        <button class="audio-btn" id="sfx-toggle" title="Toggle Sound Effects">🔔</button>
+    </div>
+
     <script>
         // Game state
         let spinning = false;
@@ -286,6 +333,8 @@
         let selectedBetType = null;
         let lastWin = 0;
         let selectedChipAmount = 0;
+        let musicEnabled = true;
+        let sfxEnabled = true;
 
         // Roulette wheel configuration
         const SEGMENTS = [
@@ -373,6 +422,163 @@
             updateStats();
         }
 
+        // Audio context for generating sounds
+        let audioContext = null;
+        let isPlayingMusic = false;
+        let currentMusicOscillators = null;
+
+        function initAudioContext() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioContext;
+        }
+
+        function generateCasinoMusic() {
+            const ctx = initAudioContext();
+            if (currentMusicOscillators !== null) return null; // Already playing
+
+            const tempo = 120; // BPM
+            const beatDuration = 60 / tempo;
+
+            // Create upbeat, fun casino music with better quality
+            const bass = ctx.createOscillator();
+            const bassGain = ctx.createGain();
+            const bassFilter = ctx.createBiquadFilter();
+            
+            bass.connect(bassFilter);
+            bassFilter.connect(bassGain);
+            bassGain.connect(ctx.destination);
+            bass.type = 'sine';
+            bassFilter.type = 'lowpass';
+            bassFilter.frequency.setValueAtTime(200, ctx.currentTime);
+            bassGain.gain.setValueAtTime(0.15, ctx.currentTime);
+            
+            // Upbeat bass line - more rhythmic and fun
+            const bassPattern = [65.41, 82.41, 98.00, 110.00]; // C2, E2, G#2, A2 - Fun progression
+            let bassIndex = 0;
+
+            const bassInterval = setInterval(() => {
+                if (!isPlayingMusic) {
+                    clearInterval(bassInterval);
+                    return;
+                }
+                bass.frequency.setTargetAtTime(bassPattern[bassIndex % bassPattern.length], ctx.currentTime, 0.05);
+                bassIndex++;
+            }, beatDuration * 250); // Faster bass pattern
+
+            // High energy melody with triangle wave for cleaner sound
+            const melody = ctx.createOscillator();
+            const melodyGain = ctx.createGain();
+            
+            melody.connect(melodyGain);
+            melodyGain.connect(ctx.destination);
+            melody.type = 'triangle'; // Cleaner, less buzzy than square
+            melodyGain.gain.setValueAtTime(0.1, ctx.currentTime);
+
+            // Fun, energetic melody pattern - casino vibe!
+            const melodyPattern = [349.23, 392.00, 440.00, 493.88, 523.25, 587.33]; // F4, G4, A4, B4, C5, D5
+            let melodyIndex = 0;
+
+            const melodyInterval = setInterval(() => {
+                if (!isPlayingMusic) {
+                    clearInterval(melodyInterval);
+                    return;
+                }
+                melody.frequency.setTargetAtTime(melodyPattern[melodyIndex % melodyPattern.length], ctx.currentTime, 0.08);
+                melodyIndex++;
+            }, beatDuration * 150); // Faster, punchier melody
+
+            // Add a bright high note layer for extra excitement
+            const high = ctx.createOscillator();
+            const highGain = ctx.createGain();
+            
+            high.connect(highGain);
+            highGain.connect(ctx.destination);
+            high.type = 'sine';
+            highGain.gain.setValueAtTime(0.08, ctx.currentTime);
+
+            const highPattern = [587.33, 659.25, 783.99, 880.00]; // D5, E5, G5, A5 - Bright notes
+            let highIndex = 0;
+
+            const highInterval = setInterval(() => {
+                if (!isPlayingMusic) {
+                    clearInterval(highInterval);
+                    return;
+                }
+                high.frequency.setTargetAtTime(highPattern[highIndex % highPattern.length], ctx.currentTime, 0.06);
+                highIndex += 0.7;
+            }, beatDuration * 300);
+
+            bass.start();
+            melody.start();
+            high.start();
+
+            // Auto-restart music if it stops
+            const restartInterval = setInterval(() => {
+                if (isPlayingMusic && currentMusicOscillators === null) {
+                    clearInterval(restartInterval);
+                    currentMusicOscillators = generateCasinoMusic();
+                }
+            }, 5000);
+
+            return { bass, melody, high, bassInterval, melodyInterval, highInterval, bassGain, melodyGain, highGain, restartInterval };
+        }
+
+        function stopCasinoMusic(oscillators) {
+            if (oscillators) {
+                try {
+                    if (oscillators.bass) oscillators.bass.stop();
+                    if (oscillators.melody) oscillators.melody.stop();
+                    if (oscillators.high) oscillators.high.stop();
+                    if (oscillators.bassInterval) clearInterval(oscillators.bassInterval);
+                    if (oscillators.melodyInterval) clearInterval(oscillators.melodyInterval);
+                    if (oscillators.highInterval) clearInterval(oscillators.highInterval);
+                    if (oscillators.restartInterval) clearInterval(oscillators.restartInterval);
+                } catch (e) {}
+            }
+        }
+
+        function playSpinSound() {
+            const ctx = initAudioContext();
+            const oscillator = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            oscillator.connect(gain);
+            gain.connect(ctx.destination);
+
+            oscillator.frequency.setValueAtTime(800, ctx.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.3);
+
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+
+            oscillator.start(ctx.currentTime);
+            oscillator.stop(ctx.currentTime + 0.3);
+        }
+
+        function playWinSound() {
+            const ctx = initAudioContext();
+
+            // Create a fun winning chime with multiple notes
+            const frequencies = [523.25, 659.25, 783.99]; // C5, E5, G5
+            
+            frequencies.forEach((freq, index) => {
+                const oscillator = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                oscillator.connect(gain);
+                gain.connect(ctx.destination);
+
+                oscillator.frequency.setValueAtTime(freq, ctx.currentTime);
+                gain.gain.setValueAtTime(0.2, ctx.currentTime + index * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.5 + index * 0.1);
+
+                oscillator.start(ctx.currentTime + index * 0.1);
+                oscillator.stop(ctx.currentTime + 0.5 + index * 0.1);
+            });
+        }
+
         function placeBetAndSpin() {
             if (spinning) return;
             
@@ -388,6 +594,14 @@
 
             balance -= currentBet;
             updateStats();
+            
+            // Play spin sound
+            if (sfxEnabled) {
+                try {
+                    playSpinSound();
+                } catch (e) {}
+            }
+            
             spinWheel();
         }
 
@@ -442,6 +656,14 @@
                     } else if (landedColor === selectedBetType) {
                         lastWin = currentBet * 2;
                         balance += lastWin;
+                        
+                        // Play win sound
+                        if (sfxEnabled) {
+                            try {
+                                playWinSound();
+                            } catch (e) {}
+                        }
+                        
                         showMessage(`You won $${lastWin}!`);
                     } else {
                         lastWin = 0;
@@ -459,6 +681,40 @@
         document.addEventListener('DOMContentLoaded', () => {
             initWheel();
             updateStats();
+            
+            // Start background music automatically
+            musicEnabled = true;
+            isPlayingMusic = true;
+            currentMusicOscillators = generateCasinoMusic();
+            document.getElementById('music-toggle').textContent = '🔊';
+            
+            // Setup audio controls
+            const musicToggle = document.getElementById('music-toggle');
+            const sfxToggle = document.getElementById('sfx-toggle');
+            
+            // Music toggle
+            musicToggle.addEventListener('click', () => {
+                musicEnabled = !musicEnabled;
+                if (musicEnabled) {
+                    isPlayingMusic = true;
+                    currentMusicOscillators = generateCasinoMusic();
+                    musicToggle.textContent = '🔊';
+                } else {
+                    isPlayingMusic = false;
+                    stopCasinoMusic(currentMusicOscillators);
+                    musicToggle.textContent = '🔇';
+                }
+            });
+            
+            // SFX toggle
+            sfxToggle.addEventListener('click', () => {
+                sfxEnabled = !sfxEnabled;
+                if (sfxEnabled) {
+                    sfxToggle.textContent = '🔔';
+                } else {
+                    sfxToggle.textContent = '🔕';
+                }
+            });
         });
     </script>
 </body>

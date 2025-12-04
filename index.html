@@ -38,11 +38,11 @@
         .hero-img{width:140px;height:140px;border-radius:10px;overflow:hidden;flex:0 0 140px;background:var(--card-bg);display:grid;place-items:center;position:relative}
     /* hero image frame: no subtle ring (removed per request) */
     .hero-img::after{display:none}
-    .hero-img img{width:100%;height:100%;object-fit:cover;display:block}
-    /* hero missing placeholder: hide broken-image box and show circular gold initials */
-    .hero-img.image-missing{background:transparent}
-    .hero-img.image-missing img{display:none}
-    .hero-img.image-missing::after{content:"KL";display:flex;align-items:center;justify-content:center;width:120px;height:120px;border-radius:50%;background:var(--gold);color:var(--maroon);font-weight:700;font-size:34px;box-shadow:0 8px 26px rgba(122,0,25,0.10)}
+    .hero-img img{width:100%;height:100%;object-fit:cover;display:block;object-position:center -50%}
+    /* hero missing placeholder: hide broken-image box and show circular gold badge image */
+    .hero-img.image-missing{background:transparent;border-radius:50%;width:120px;height:120px;flex:0 0 120px}
+    .hero-img.image-missing img{display:block}
+    .hero-img.image-missing::after{content:"";display:none}
         .hero-content{flex:1}
         h1{font-size:34px;margin:0 0 6px;color:var(--white);letter-spacing:0.02em}
     /* gold underline below your name (kept larger by default) */
@@ -66,7 +66,7 @@
         /* Hobbies grid */
         .hobbies{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
         .hobby{display:flex;gap:12px;align-items:flex-start}
-        .hobby-img{width:120px;height:80px;border-radius:8px;overflow:hidden;background:#f3f1ef;border:1px solid rgba(0,0,0,0.04)}
+        .hobby-img{width:240px;height:180px;border-radius:8px;overflow:hidden;background:#f3f1ef;border:1px solid rgba(0,0,0,0.04)}
         .hobby-img img{width:100%;height:100%;object-fit:cover}
         .hobby h3{margin:0 0 6px;font-size:16px;color:var(--maroon)}
         .hobby p{margin:0;color:var(--muted);font-size:14px}
@@ -130,12 +130,12 @@
     <div class="wrap">
         <header>
             <div class="hero-img">
-                <img src="images/mypic.jpg" alt="Kevin Laska">
+                <img src="images/IMG_4080.JPEG" alt="Kevin Laska">
             </div>
             <div class="hero-content">
                 <h1>Kevin Laska</h1>
-                <p class="lead">University of Minnesota Duluth — Student | Aspiring IT Consultant</p>
-                <p class="lead" style="margin-top:8px">I study at UMD, training to become an IT professional who uses creativity and technical skills to solve business problems.</p>
+                <p class="lead">University of Minnesota Duluth — Business Administration & MIS Student</p>
+                <p class="lead" style="margin-top:8px">Driven IT professional in training with a passion for solving complex business problems through technology. I combine technical expertise with creative thinking to deliver innovative solutions. Currently pursuing a degree in Business Administration with a focus on Management Information Systems at UMD, where I'm developing skills in systems analysis, strategic IT implementation, and cross-functional team collaboration.</p>
             </div>
         </header>
 
@@ -150,23 +150,7 @@
                     <h2 style="margin-top:0">Hobbies</h2>
                     <div class="hobbies">
                         <div class="hobby">
-                            <div class="hobby-img"><img src="images/hockey.jpg" alt="Hockey"></div>
-                            <div>
-                                <h3>Hockey</h3>
-                                <p>Playing hockey has been a passion — it taught me teamwork, discipline, and leadership. I played varsity and wear my experiences proudly.</p>
-                            </div>
-                        </div>
-
-                        <div class="hobby">
-                            <div class="hobby-img"><img src="images/lifting.jpg" alt="Lifting"></div>
-                            <div>
-                                <h3>Lifting</h3>
-                                <p>Strength training keeps me focused and healthy. Lifting helps me build mental resilience and physical confidence.</p>
-                            </div>
-                        </div>
-
-                        <div class="hobby">
-                            <div class="hobby-img"><img src="images/friends.jpg" alt="Friends"></div>
+                            <div class="hobby-img"><img src="images/IMG_3931.JPG" alt="Hanging with Friends"></div>
                             <div>
                                 <h3>Hanging with friends</h3>
                                 <p>Spending time with friends grounds me, brings balance, and creates lifelong memories during college years.</p>
@@ -174,42 +158,14 @@
                         </div>
 
                         <div class="hobby">
-                            <div class="hobby-img"><img src="images/itwork.jpg" alt="IT Work"></div>
+                            <div class="hobby-img"><img src="images/IMG_4180.jpg" alt="Fishing"></div>
                             <div>
-                                <h3>IT Work</h3>
-                                <p>I enjoy hands-on IT work — fixing problems, learning new tools, and building systems that make life easier for others.</p>
-                            </div>
-                        </div>
-
-                        <div class="hobby">
-                            <div class="hobby-img"><img src="images/family.jpg" alt="Family"></div>
-                            <div>
-                                <h3>Spending time with family</h3>
-                                <p>Family time is important — it keeps perspective and motivation strong while I pursue school and athletics.</p>
-                            </div>
-                        </div>
-
-                        <div class="hobby">
-                            <div class="hobby-img"><img src="images/college.jpg" alt="College"></div>
-                            <div>
-                                <h3>College life</h3>
-                                <p>College brings learning, connections, and growth — a major chapter where I develop personally and professionally.</p>
+                                <h3>Fishing</h3>
+                                <p>Fishing is my escape — a peaceful way to connect with nature, practice patience, and recharge mentally.</p>
                             </div>
                         </div>
 
                     </div>
-                </section>
-
-                <section class="card achievements" style="margin-top:16px">
-                    <h2 style="margin-top:0">Achievements</h2>
-                    <ul>
-                        <li>3× Letterman Varsity Hockey and Captain senior year</li>
-                        <li>1× Letter Varsity Lacrosse</li>
-                        <li>Most Improved Varsity Hockey 2023 (junior year)</li>
-                        <li>1× State Tournament Participant</li>
-                        <li>3× Academic Athlete (maintained a 3.0+ GPA during season)</li>
-                        <li>1× Scholarship award for college</li>
-                    </ul>
                 </section>
 
             </div>
